@@ -1,6 +1,16 @@
 # Retail Loan Portfolio & Customer Compliance Analytics
 
-This project is an end-to-end analytics solution that I built using **Python, PostgreSQL, SQL, and Power BI** to analyze retail loan portfolio performance and customer compliance. The project starts from raw CSV files, moves through SQL-based data transformation in PostgreSQL, and ends with a Power BI report published to Power BI Service with gateway connectivity, incremental refresh, and scheduled refresh.
+This is a personal end-to-end analytics project that I built using **Python, PostgreSQL, SQL, and Power BI** to analyze retail loan portfolio performance and customer compliance. The project starts from raw CSV files, moves through SQL-based data transformation in PostgreSQL, and ends with a Power BI report published to Power BI Service with gateway connectivity, incremental refresh, and scheduled refresh.
+
+The solution demonstrates a complete analytics workflow that combines **data ingestion, layered SQL transformation, compliance validation, dimensional modeling, semantic modeling, and cloud-based reporting** in a single project.
+
+---
+
+## Live Power BI Report
+
+You can explore the interactive report here:
+
+[Power BI Dashboard](https://app.powerbi.com/view?r=eyJrIjoiNjI5Nzg5ZTMtNTYxNC00MzQ2LTlhZTgtYjk0YTNmMDhkNTNmIiwidCI6IjI1Y2UwMjYxLWJiZDYtNDljZC1hMWUyLTU0MjYwODg2ZDE1OSJ9)
 
 ---
 
@@ -21,6 +31,24 @@ The project includes:
 - On-Premises Data Gateway setup
 - incremental refresh
 - scheduled refresh in Power BI Service
+
+---
+
+## Project Context
+
+Retail lending businesses need a structured way to monitor portfolio exposure, delinquency, branch and channel performance, and customer compliance. In many practical scenarios, raw data exists in flat files or source extracts, but decision-makers need a governed reporting layer that can answer business questions quickly and consistently.
+
+The goal of this project was to build a full reporting pipeline that could:
+
+- ingest raw loan portfolio data from CSV files
+- transform and standardize the data in PostgreSQL
+- validate KYC and PAN quality
+- create analytics-ready fact and dimension tables
+- support a Power BI semantic model and interactive dashboard
+- publish the report to Power BI Service
+- refresh automatically using an On-Premises Data Gateway, incremental refresh, and scheduled refresh
+
+The final output is a complete portfolio and compliance analytics solution that provides a structured, business-ready reporting experience across loan performance, KYC quality, delinquency, geography, branch contribution, and portfolio risk.
 
 ---
 
@@ -122,10 +150,7 @@ After publishing the report, I configured the dataset in Power BI Service, conne
 │   └── 05_Business_Layer_Transformations.sql
 ├── 04_PowerBI/
 │   ├── Retail_Loan_Portfolio_Analytics.pbix
-│   ├── screenshots/
-│   │   ├── 01_Cover_Page.png
-│   │   ├── 02_Loan_Portfolio_Analysis.png
-│   │   └── 03_Customer_Compliance_Branch_Performance.png
+│   ├── Retail Loan Portfolio & Customer Compliance Analytics.pdf
 │   └── dax_measures/
 │       └── DAX_Measures.md
 └── 06_Assets/
@@ -139,24 +164,24 @@ After publishing the report, I configured the dataset in Power BI Service, conne
 ## Data Layer Details
 
 ### Raw Tables
-I loaded the following tables into the raw schema:
+The raw layer tables used in this project are:
 
-- `raw.branch`
-- `raw.customer`
-- `raw.geography`
-- `raw.kyc`
-- `raw.loan`
-- `raw.loan_product`
+- `raw.dim_branch`
+- `raw.dim_customer`
+- `raw.dim_geography`
+- `raw.dim_kyc`
+- `raw.dim_loan_product`
+- `raw.fact_loan`
 
 ### Staging Tables
 From the raw layer, I created these staging tables:
 
-- `staging.stg_branch`
-- `staging.stg_customer`
-- `staging.stg_geography`
-- `staging.stg_kyc`
-- `staging.stg_loan`
-- `staging.stg_loan_product`
+- `staging.stg_dim_branch`
+- `staging.stg_dim_customer`
+- `staging.stg_dim_geography`
+- `staging.stg_dim_kyc`
+- `staging.stg_dim_loan_product`
+- `staging.stg_fact_loan`
 
 ### Business Tables
 For Power BI reporting, I created these final business tables:
@@ -298,6 +323,25 @@ This table contains loan-level facts such as:
 - DPD bucket
 - NPA risk flag
 - outstanding-to-principal ratio
+
+---
+
+## Data Model Design
+
+The reporting layer follows a **dimensional model** centered around the loan fact table.
+
+### Fact Table
+- `business.fact_loan`
+
+### Dimension Tables
+- `business.dim_branch`
+- `business.dim_customer`
+- `business.dim_loan_product`
+
+### Grain
+- **One row in `fact_loan` represents one loan account**
+
+This model helps Power BI perform fast aggregations and supports branch-wise, customer-wise, product-wise, channel-wise, and delinquency-wise analysis.
 
 ---
 
@@ -547,19 +591,6 @@ Validate the refresh pipeline, gateway mapping, credentials, and report availabi
 
 ---
 
-## Screenshots
-
-### Cover Page
-![Cover Page](04_PowerBI/screenshots/01_Cover_Page.png)
-
-### Loan Portfolio Analysis
-![Loan Portfolio Analysis](04_PowerBI/screenshots/02_Loan_Portfolio_Analysis.png)
-
-### Customer Compliance & Branch Performance
-![Customer Compliance & Branch Performance](04_PowerBI/screenshots/03_Customer_Compliance_Branch_Performance.png)
-
----
-
 ## Files Included in This Repository
 
 ### Data
@@ -578,7 +609,7 @@ Validate the refresh pipeline, gateway mapping, credentials, and report availabi
 
 ### Power BI
 - PBIX report file
-- screenshots
+- report PDF
 - DAX measures documentation
 
 ### Assets
@@ -588,27 +619,9 @@ Validate the refresh pipeline, gateway mapping, credentials, and report availabi
 
 ---
 
-## Report / Demo Links
-
-You can add final links here after publishing.
-
-### Power BI Report Link
-[Add Power BI report link here]
-
-### Demo Video Link
-[Add demo video link here]
-
-### LinkedIn Project Post
-[Add LinkedIn post link here]
-
-### Portfolio Link
-[Add portfolio link here]
-
----
-
 ## Notes
 
-This repository is intended for project presentation and portfolio use.
+This repository is intended for personal project presentation, portfolio demonstration, and as a learning reference for anyone who wants to understand how to build a layered analytics solution using Python, PostgreSQL, SQL, and Power BI.
 
 Sensitive details such as passwords, certificates, private credentials, and machine-specific secrets should not be uploaded to GitHub.
 
