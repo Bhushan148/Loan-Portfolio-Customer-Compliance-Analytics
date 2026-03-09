@@ -1,1 +1,18 @@
 
+## requirements.txt
+
+This project uses Python libraries for:
+- data loading and preprocessing
+- PostgreSQL connectivity
+- notebook execution
+- environment variable management
+- Excel file handling
+
+pandas==2.2.3
+numpy==2.1.3
+psycopg2-binary==2.9.10
+SQLAlchemy==2.0.36
+jupyter==1.1.1
+notebook==7.3.2
+ipykernel==6.29.5
+python-dotenv==1.0.1
