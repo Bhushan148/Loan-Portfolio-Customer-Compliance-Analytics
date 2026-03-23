@@ -1,4 +1,4 @@
-# Retail Loan Portfolio & Customer Compliance Analytics
+# Loan Portfolio & Customer Compliance Analytics
 
 This is a personal end-to-end analytics project that I built using **Python, PostgreSQL, SQL, and Power BI** to analyze retail loan portfolio performance and customer compliance. The project starts from raw CSV files, moves through SQL-based data transformation in PostgreSQL, and ends with a Power BI report published to Power BI Service with gateway connectivity, incremental refresh, and scheduled refresh.
 
